@@ -21,9 +21,11 @@ class Song
     column_names.compact
   end
 
-  self.column_names.each do |col_name|
-    attr_accessor col_name.to_sym
-  end
+  values = []
+ 
+self.class.column_names.each do |col_name|
+  values << "'#{send(col_name)}'" unless send(col_name).nil?
+end
 
   def initialize(options={})
     options.each do |property, value|
